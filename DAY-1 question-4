@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> dp;
+    
+    int solve(int ind,int n,vector<int>& nums){
+        if(ind>=n)return 0;
+        
+        if(dp[ind]!=-1)return dp[ind];
+        
+        int include=nums[ind]+solve(ind+2,n,nums);
+        int exclude=solve(ind+1,n,nums);
+        
+        return dp[ind]=max(include,exclude);
+    }
+    
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        if(n<=3){
+            return *max_element(nums.begin(),nums.end());
+        }
+        
+        dp.resize(n+1,-1);
+        int a=solve(0,n-1,nums);
+        
+        vector<int> d(n+1,-1);
+        dp=d;
+        int b=solve(1,n,nums);
+        
+        // cout<<a<<" "<<b<<endl;
+        return max(a,b);
+    }
+};
