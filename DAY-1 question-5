@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool solve(vector<int> &arr,int i,vector<bool> &visited){
+        if(i>=arr.size() || i<0)
+            return false;
+        if(arr[i]==0)
+            return true;
+        if(visited[i]==true)
+            return false;
+        visited[i]=true;
+        bool x,y;
+        x = solve(arr,i+arr[i],visited);
+        y = solve(arr,i-arr[i],visited);
+        
+        return (x||y);
+    }
+    
+    bool canReach(vector<int>& arr, int start) {
+        vector<bool> visited(arr.size(),false);
+        
+        return solve(arr,start,visited);
+    }
+};
