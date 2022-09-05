@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        vector<int> ans;
+        if(root==NULL)
+            return ans;
+        
+        stack<Node*> st;
+        st.push(root);
+        while(st.empty()==false){
+            Node* temp  = st.top();
+            ans.push_back(temp->val);
+            st.pop();
+            for(auto u:temp->children)
+                st.push(u);
+        }
+        reverse(ans.begin(),ans.end());
+        
+        return ans;
+    }
+};
